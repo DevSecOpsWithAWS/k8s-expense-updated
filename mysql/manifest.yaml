@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+  namespace: expense
+  # these are replicaset labels
+  labels:
+    app: mysql
+    tier: database
+    project: expense
+spec:
+  replicas: 1
+  selector:
+  #replicaset use those labels to identify its pods
+    matchLabels:
+      app: mysql
+      tier: database
+      project: expense
+  #pod template
+  template:
+    metadata:
+      # these are pod labels
+      labels:
+        app: mysql
+        tier: database
+        project: expense
+    spec:
+      containers:
+        - name: nginx
+          image: joindevops/mysql:1.0.0
